@@ -27,16 +27,6 @@
 @synthesize timer;
 @synthesize debugInitThreadPtr;
 
-- (void) dealloc {
-
-	[queue release];
-	[recurringOperations release];
-	[timer invalidate];
-	[timer release];
-	[super dealloc];
-
-}
-
 - (id) init {
 	
 	return [self initWithQueue:nil];
@@ -117,16 +107,16 @@
 	
 	[self.recurringOperations enumerateObjectsUsingBlock: ^ (NSOperation *operationPrototype, NSUInteger idx, BOOL *stop) {
 		
-		NSOperation *prefix = [[self newPostponingWrapperPrefix] autorelease];
+//		NSOperation *prefix = [[self newPostponingWrapperPrefix] autorelease];
 		NSOperation *operation = [[operationPrototype copy] autorelease];
-		NSOperation *suffix = [[self newPostponingWrapperSuffix] autorelease];
+//		NSOperation *suffix = [[self newPostponingWrapperSuffix] autorelease];
 		
-		[operation addDependency:prefix];
-		[suffix addDependency:operation];
-	
-		[queue addOperation:prefix];
+//		[operation addDependency:prefix];
+//		[suffix addDependency:operation];
+//	
+//		[queue addOperation:prefix];
 		[queue addOperation:operation];
-		[queue addOperation:suffix];
+//		[queue addOperation:suffix];
 	
 	}];
 
