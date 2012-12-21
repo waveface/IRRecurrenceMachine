@@ -68,16 +68,4 @@
 	
 //	If operations are rescheduled properly, the internal timer will also be reset.
 
-
-- (NSOperation *) newPostponingWrapperPrefix NS_RETURNS_RETAINED;
-- (NSOperation *) newPostponingWrapperSuffix NS_RETURNS_RETAINED;
-
-//	They call -beginPostponingOperations and -endPostponingOperations on self
-//	and are sent to the operation queue in this order:
-//	
-//		{ Prefix } - { Real Operation } - { Suffix }
-//	
-//	where the real operation is dependent on the prefix, and
-//	the suffix is dependent on the real operation.
-
 @end
