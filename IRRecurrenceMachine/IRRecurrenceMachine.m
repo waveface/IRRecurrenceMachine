@@ -92,8 +92,20 @@
 }
 
 - (BOOL) scheduleOperationsNow {
-  
+
+  if (![NSThread isMainThread]) {
+    __weak IRRecurrenceMachine *wSelf = self;
+    __block BOOL returnedValue;
+    dispatch_sync(dispatch_get_main_queue(), ^{
+      returnedValue = [wSelf scheduleOperationsNow];
+    });
+    return returnedValue;
+  }
+
   if (self.queue.operationCount)
+    return NO;
+  
+  if ([self isPostponingOperations])
     return NO;
   
   [self beginPostponingOperations];
